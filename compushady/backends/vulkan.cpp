@@ -3492,7 +3492,7 @@ static PyObject *vulkan_Swapchain_present(vulkan_Swapchain *self, PyObject *args
     present_info.pWaitSemaphores = &(self->present_semaphore);
     result = vkQueuePresentKHR(self->py_device->queue, &present_info);
 
-    if (result == VK_SUCCESS)
+    if (result == VK_SUCCESS || result == VK_SUBOPTIMAL_KHR)
     {
         Py_BEGIN_ALLOW_THREADS;
         vkQueueWaitIdle(self->py_device->queue);
